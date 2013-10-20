@@ -1,6 +1,6 @@
 This project follows UFLDL tutorial of Stanford University.
-some useful materials on the web : http://ufldl.stanford.edu/wiki/index.php/UFLDL_Tutorial 
-All sub-branches below should be implemented.
+Some useful materials on the web : http://ufldl.stanford.edu/wiki/index.php/UFLDL_Tutorial 
+All sub-branches below should be implemented
 1.Sparse Autoencoder
 2.Vectorizd implementation
 3.Preprocessing:PCA and Whitening
