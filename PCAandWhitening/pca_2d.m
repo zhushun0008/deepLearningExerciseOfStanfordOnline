@@ -60,8 +60,8 @@ title('xRot');
 % -------------------- YOUR CODE HERE -------------------- 
 k = 1; % Use k = 1 and project the data onto the first eigenbasis
 xHat = zeros(size(x)); % You need to compute this
-
-
+Uk = U(:,1:k);
+xHat = Uk * Uk' * x;
 
 % -------------------------------------------------------- 
 figure(3);
@@ -77,7 +77,7 @@ epsilon = 1e-5;
 % -------------------- YOUR CODE HERE -------------------- 
 xPCAWhite = zeros(size(x)); % You need to compute this
 
-
+xPCAWhite = diag(1 ./sqrt(diag(S) + epsilon))* U' * x;
 
 
 % -------------------------------------------------------- 
@@ -92,6 +92,7 @@ title('xPCAWhite');
 % -------------------- YOUR CODE HERE -------------------- 
 xZCAWhite = zeros(size(x)); % You need to compute this
 
+xZCAWhite = U * xPCAWhite;
 
 % -------------------------------------------------------- 
 figure(5);
