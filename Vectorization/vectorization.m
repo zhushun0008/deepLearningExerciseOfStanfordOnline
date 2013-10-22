@@ -62,4 +62,3 @@ display_network(W1', 12);
 
 print -djpeg weights.jpg   % save the visualization to a file 
 
-toc;

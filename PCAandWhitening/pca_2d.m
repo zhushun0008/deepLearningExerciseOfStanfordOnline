@@ -18,9 +18,14 @@ title('Raw data');
 %  Implement PCA to obtain the rotation matrix U, which is the eigenbasis
 %  sigma. 
 
+
 % -------------------- YOUR CODE HERE -------------------- 
 u = zeros(size(x, 1)); % You need to compute this
-
+avg = mean(x,2);
+x = x - repmat(avg,1,size(x,2));
+Sigma = x * x' / size(x,2);
+[U, S, V] = svd(Sigma);
+u = U;
 
 % -------------------------------------------------------- 
 hold on
@@ -36,7 +41,7 @@ hold off
 
 % -------------------- YOUR CODE HERE -------------------- 
 xRot = zeros(size(x)); % You need to compute this
-
+xRot = U' * x;
 
 % -------------------------------------------------------- 
 
