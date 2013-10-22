@@ -66,38 +66,10 @@ delta2 = (W2'*delta3 + repmat(delta2Sparse,1,exampleNum)) .*a2.*(1-a2);
 W2grad = delta3 * a2';
 b2grad = sum(delta3,2);
 W1grad = delta2 * a1';
-b1grad = sum(delta2,2);
-%for num = 1:exampleNum
-%	(a).01 Implement forward propagation.
-	% a1 = data(:,num);
-	% z2 = W1 * a1 + b1;
-	% a2 = sigmoid(z2);
-	% z3 = W2 * a2 + b2;
-	% a3 = sigmoid(z3);
-	%averageActication = averageActication + a2;
-%end
+b1grad = sum(delta2,2);	
 
 kl = sparsityParam*log(sparsityParam./averageActication) + (1-sparsityParam)*log((1-sparsityParam)./(1-averageActication));
-%delta2Sparse = beta*(-sparsityParam./averageActication+(1-sparsityParam)./(1-averageActication));
-%size(delta2Sparse)
-%for num = 1:exampleNum
-%	(a).01 Implement forward propagation.
-	% a1 = data(:,num);
-	% z2 = W1 * a1 + b1;
-	% a2 = sigmoid(z2);
-	% z3 = W2 * a2 + b2;
-	% a3 = sigmoid(z3);
-	% Jbasic = Jbasic +(a3-a1)'*(a3-a1);
-	
-%	(a).02 Implement back propagation.
-	% delta3 = (a3 - a1) .* a3 .*(1-a3);
-	% delta2 = (W2'*delta3 + delta2Sparse) .*a2.*(1-a2);
-	% W2grad = W2grad + delta3 * a2';
-	% b2grad = b2grad + delta3;
-	% W1grad = W1grad + delta2 * a1';
-	% b1grad = b1grad + delta2;
 
-%end
 W2grad = W2grad ./exampleNum + lambda * W2 ;
 W1grad = W1grad ./exampleNum + lambda * W1;
 b2grad = b2grad ./ exampleNum;
@@ -106,12 +78,6 @@ Jbasic = Jbasic/(2*exampleNum);
 regularTerm = lambda/2 *(sum(sum((W1.^2))) +sum(sum((W2.^2))));
 SparseTerm = beta * sum(kl);
 cost = Jbasic + regularTerm + SparseTerm;
-
-
-
-
-
-
 
 %-------------------------------------------------------------------
 % After computing the cost and gradient, we will convert the gradients back
