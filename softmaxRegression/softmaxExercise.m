@@ -35,8 +35,8 @@ lambda = 1e-4; % Weight decay parameter
 % On some platforms, the files might be saved as 
 % train-images.idx3-ubyte / train-labels.idx1-ubyte
 
-images = loadMNISTImages('mnist/train-images-idx3-ubyte');
-labels = loadMNISTLabels('mnist/train-labels-idx1-ubyte');
+images = loadMNISTImages('train-images.idx3-ubyte');
+labels = loadMNISTLabels('train-labels.idx1-ubyte');
 labels(labels==0) = 10; % Remap 0 to 10
 
 inputData = images;
@@ -45,13 +45,14 @@ inputData = images;
 % in order to speed up gradient checking. 
 % Here, we create synthetic dataset using random data for testing
 
-DEBUG = true; % Set DEBUG to true when debugging.
+DEBUG = false; % Set DEBUG to true when debugging.
 if DEBUG
     inputSize = 8;
     inputData = randn(8, 100);
     labels = randi(10, 100, 1);
 end
-
+inputData = [ones(1,size(inputData,2));inputData];
+inputSize = inputSize + 1;
 % Randomly initialise theta
 theta = 0.005 * randn(numClasses * inputSize, 1);
 
@@ -108,12 +109,12 @@ softmaxModel = softmaxTrain(inputSize, numClasses, lambda, ...
 %  (in softmaxPredict.m), which should return predictions
 %  given a softmax model and the input data.
 
-images = loadMNISTImages('mnist/t10k-images-idx3-ubyte');
-labels = loadMNISTLabels('mnist/t10k-labels-idx1-ubyte');
+images = loadMNISTImages('t10k-images.idx3-ubyte');
+labels = loadMNISTLabels('t10k-labels.idx1-ubyte');
 labels(labels==0) = 10; % Remap 0 to 10
 
 inputData = images;
-
+inputData = [ones(1,size(inputData,2));inputData];
 % You will have to implement softmaxPredict in softmaxPredict.m
 [pred] = softmaxPredict(softmaxModel, inputData);
 
